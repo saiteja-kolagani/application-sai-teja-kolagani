@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -93,6 +93,8 @@ const Login = () => {
             Login
           </button>
         </div>
+        <p className='or-text'>or</p>
+        <Link to="/register" className='link-user'><p className='create-user-text'>Create Your Account</p></Link>
       </form>
     </div>
   );

@@ -73,11 +73,12 @@ const ProductList = () => {
         <h1>Products</h1>
         <ul>
           {products.map((product) => (
-            <li key={product.id}>
-              <Link to={`/products/${product.id}`}>
-                {product.name} - {product.description} - ${product.price} - Stocks {product.stock}
+            <li key={product.id} className='stock-list-card'>
+              <Link to={`/products/${product.id}`} className='product-link'>
+                <p className='stock-name'>{product.name}</p> <p>Know more about the stock...</p> <p>Rs.{product.price}</p> <p> Stocks {product.stock}</p>
               </Link>
-              <button onClick={() => handleAddToCart(product.id)}>Add to Cart</button>
+              <br />
+              <button onClick={() => handleAddToCart(product.id)} className='add-cart-btn'>Add to Cart</button>
             </li>
           ))}
         </ul>

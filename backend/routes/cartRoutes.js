@@ -3,17 +3,13 @@ const router = express.Router();
 const cartController = require('../controllers/cartController');
 const authMiddleware = require('../middleware/authMiddleware');
 
-// Route to add an item to the cart
-router.post('/cart', authMiddleware, (req, res) => {
-  const { user_id, product_id, quantity } = req.body;
-  console.log("Received User ID: ", user_id); // Log the user ID
+// Correct the POST route path to match the intended API endpoint
+router.post('/', authMiddleware, (req, res) => {
   cartController.addItemToCart(req, res);
 });
 
-// Route to get items from the cart for a specific user
-router.get('/cart/:user_id', authMiddleware, (req, res) => {
-  const { user_id } = req.params;
-  console.log("Received User ID: ", user_id); // Log the user ID
+// Correct the GET route to fetch items based on the user_id
+router.get('/:user_id', authMiddleware, (req, res) => {
   cartController.getCartItems(req, res);
 });
 

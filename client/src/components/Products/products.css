@@ -15,14 +15,22 @@
     flex-wrap: wrap;
     justify-content: space-between;
     list-style-type: decimal;
+    padding: 0px;
 }
 
 .products-bg ul li {
     margin: 25px;
-    border-bottom: 2px solid #32a852;
     width: 280px;
     font-size: 18px;
     font-weight: 500;
+    padding: 20px;
+    background-image: radial-gradient(#ebfef5, #e87e0c);
+}
+
+.products-bg ul li p {
+    font-size: 16px;
+    margin: 4px;
+    color: black;
 }
 
 .products-bg h1 {
@@ -47,14 +55,28 @@
     flex-wrap: wrap;
     justify-content: space-between;
     list-style-type: none;
+    padding: 0px;
 }
 
 .admin-bg ul li {
     margin: 25px;
-    border-bottom: 2px solid #32a852;
     width: 280px;
     font-size: 18px;
     font-weight: 500;
+    border: 2px solid #32a852;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.stock-list-card {
+    height: 200px;
+    background-color: #ebfef5;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .admin-input-container {
@@ -108,22 +130,22 @@
 }
 
 .admin-delete-btn {
-  background-color: red;
-  color: white;
-  padding: 5px 10px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  outline: none;
-  margin-bottom: 5px;
-  margin-left: 15px;
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    outline: none;
+    margin-bottom: 5px;
+    margin-left: 15px;
 }
 
 .admin-delete-btn:hover {
     background-color: darkred;
-  }
+}
 
-  .admin-edit-btn {
+.admin-edit-btn {
     background-color: blue;
     color: white;
     width: 60px;
@@ -133,12 +155,59 @@
     border-radius: 5px;
     outline: none;
     margin-bottom: 5px;
-  }
+}
 
-  .admin-edit-btn:hover {
+.admin-edit-btn:hover {
     background-color: darkblue;
-  }
+}
 
-  .product-link {
+.product-link {
     text-decoration: none;
-  }
+}
+
+.add-cart-btn {
+    padding-inline: 12px;
+    padding-block: 6px;
+    border: 1px solid #e87e0c;
+    background-color: #ebfef5;
+    color: #e87e0c;
+    border-radius: 6px;
+    cursor: pointer;
+    outline: none;
+}
+
+.add-cart-btn:hover {
+    background-color: #32a852;
+    color: black;
+    border: none;
+}
+
+.stock-name {
+    font-size: 24px !important;
+    color: #32a852 !important;
+    font-weight: 700;
+}
+
+.product-detail-bg {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 90vh;
+    align-items: center;
+}
+
+.product-detail-bg h1 {
+    text-decoration: underline;
+}
+
+.product-detail-bg h2 {
+    font-size: 28px;
+    color: #32a852;
+}
+
+.product-detail-bg p {
+    color: black;
+    font-weight: 500;
+    font-size: 18px;
+}

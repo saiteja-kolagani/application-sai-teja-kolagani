@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 import './credentials.css';
 
@@ -88,6 +88,8 @@ const Register = () => {
         <div className='btn-container'>
           <button type="submit" className='register-btn'>Register</button>
         </div>
+        <p className='or-text'>or</p>
+        <Link to='/login' className='link-user'><p className='create-user-text'>Existing user? Click to log in.</p></Link>
       </form>
     </div>
   );

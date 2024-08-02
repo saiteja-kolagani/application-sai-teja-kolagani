@@ -49,4 +49,3 @@ exports.login = (req, res) => {
     res.status(200).json({ auth: true, token, role: user.role, userId: user.id });
   });
 };
-

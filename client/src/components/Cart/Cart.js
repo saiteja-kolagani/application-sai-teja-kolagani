@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import Cookies from 'js-cookie';
 
 import Header from '../Header/Header';
@@ -14,35 +13,35 @@ const Cart = () => {
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
-        if (!userId) {
-          console.error('User ID not found in cookies!');
-          return;
-        }
-
-        const token = Cookies.get('authToken');
-        if (!token) {
-          console.error('No auth token found!');
-          return;
-        }
-
-        const result = await axios.get(`http://localhost:5000/api/cart/${userId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-          withCredentials: true,
+        const response = await fetch(`/api/cart/${userId}`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${Cookies.get('authToken')}`,
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
         });
 
-        setCartItems(result.data);
+        if (!response.ok) {
+          throw new Error('Failed to fetch cart items');
+        }
+
+        const data = await response.json();
+        setCartItems(data);
       } catch (error) {
         console.error('Error fetching cart items:', error);
       }
     };
 
-    fetchCartItems();
+    if (userId) {
+      fetchCartItems();
+    }
   }, [userId]);
 
   return (
-    <div className="routes-bg">
+    <div className='routes-bg'>
       <Header />
-      <div className="cart-bg">
+      <div className='cart-bg'>
         <h1>Shopping Cart</h1>
         <ul>
           {cartItems.map((item) => (
