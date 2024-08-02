@@ -8,13 +8,12 @@ import './styledheader.css';
 const Header = () => {
   const navigate = useNavigate();
 
-  // Retrieve the user role from the cookies
   const userRole = Cookies.get('userRole');
 
   const handleLogout = () => {
-    Cookies.remove('aToken', { path: '/' }); // Adjust the token name if needed
-    Cookies.remove('userRole', { path: '/' }); // Remove userRole cookie
-    console.log('Logged out!');
+    Cookies.remove('authToken', { path: '/' }); 
+    Cookies.remove('userRole', { path: '/' });
+    Cookies.remove('userId', { path: '/' });
     navigate('/login');
   };
 
@@ -30,7 +29,6 @@ const Header = () => {
         <Link to="/cart" className="link-style">
           <li className="nav-list-item">Cart</li>
         </Link>
-        {/* Conditionally render the Admin link based on user role */}
         {userRole === 'admin' && (
           <Link to="/admin" className="link-style">
             <li className="nav-list-item">Admin</li>

@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Cookies from 'js-cookie'; // Ensure to import js-cookie
+import Cookies from 'js-cookie'; 
 
 import Header from '../Header/Header';
 
+import '../routes.css'
+import './cart.css'
+
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
-  const userId = Cookies.get('userId'); // Fetch userId from cookies
+  const userId = Cookies.get('userId'); 
 
   useEffect(() => {
     const fetchCartItems = async () => {
@@ -14,7 +17,7 @@ const Cart = () => {
         const result = await axios.get(`/api/cart/${userId}`, {
           withCredentials: true,
           headers: {
-            Authorization: `Bearer ${Cookies.get('authToken')}`, // Add token header
+            Authorization: `Bearer ${Cookies.get('authToken')}`, 
           },
         });
         setCartItems(result.data);
@@ -28,9 +31,9 @@ const Cart = () => {
   }, [userId]);
 
   return (
-    <>
+    <div className='routes-bg'>
       <Header />
-      <div>
+      <div className='cart-bg'>
         <h1>Shopping Cart</h1>
         <ul>
           {cartItems.map((item) => (
@@ -40,7 +43,7 @@ const Cart = () => {
           ))}
         </ul>
       </div>
-    </>
+    </div>
   );
 };
 

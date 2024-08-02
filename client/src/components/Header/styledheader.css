@@ -1,9 +1,10 @@
 .nav-header {
-    border: 2px solid;
     display: flex;
     align-items: center;
     padding-inline: 20px;
     justify-content: center;
+    background-image: linear-gradient(to left, #ebfef5, #e87e0c);
+    border-bottom: 1px solid;
 }
 .nav-items-container {
     display: flex;
@@ -27,6 +28,12 @@
     padding-block: 6px;
 }
 
+.logout-btn:hover {
+    background-color: #ebfef5;
+    color: #e87e0c;
+    border: 1px solid #e87e0c;
+}
+
 .link-style {
     text-decoration: none;
 }
@@ -35,4 +42,8 @@
     font-size: 16px;
     font-weight: 500;
     color: black;
+}
+
+.nav-list-item:hover {
+    text-decoration: underline; 
 }

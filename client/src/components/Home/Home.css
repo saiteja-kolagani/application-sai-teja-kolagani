@@ -1,0 +1,28 @@
+.home-bg {
+    min-height: 89vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-inline: 80px;
+}
+
+.home-bg h1 {
+    font-size: 38px;
+    font-family: 'Courier New', Courier, monospace;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.home-bg h1 span {
+    color: #32a852;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 42px;
+}
+
+.home-bg p {
+    font-size: 20px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 500;
+    text-align: center;
+}

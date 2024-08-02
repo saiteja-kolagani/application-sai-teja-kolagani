@@ -1,0 +1,8 @@
+.cart-bg {
+    min-height: 89vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-inline: 80px;
+}
