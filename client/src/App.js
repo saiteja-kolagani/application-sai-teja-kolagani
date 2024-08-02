@@ -1,10 +1,12 @@
+// src/App.js
+
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import Home from './components/Home/Home';
 import ProductList from './components/Products/ProductList';
-import ProductDetail from './components/Products/ProductDetail';
+import ProductDetail from './components/Products/ProductDetail'; // Import the ProductDetail component
 import AdminDashboard from './components/Products/AdminDashboard';
 import Cart from './components/Cart/Cart';
 import Checkout from './components/Cart/Checkout';
@@ -21,8 +23,6 @@ const App = () => {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-
-            {/* Protected Routes */}
             <Route
               path="/"
               element={

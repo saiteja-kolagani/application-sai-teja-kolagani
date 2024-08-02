@@ -1,34 +1,35 @@
-import React, { useState, useEffect } from 'react';
+// src/components/Products/ProductDetail.js
+
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import Cookies from 'js-cookie'; // Import js-cookie
+import Cookies from 'js-cookie';
+import { useParams } from 'react-router-dom'; // Import useParams for route parameters
+import Header from '../Header/Header';
+
+import '../routes.css';
+import './products.css';
 
 const ProductDetail = () => {
-  const { id } = useParams();
+  const { id } = useParams(); // Get the product ID from the URL parameters
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        // Fetch token from cookies
         const token = Cookies.get('authToken');
-
-        // Check if the token exists
         if (!token) {
           console.error('No auth token found!');
-          // Handle no token case, e.g., redirect or show an error
           return;
         }
 
         const result = await axios.get(`http://localhost:5000/api/products/${id}`, {
-          headers: { Authorization: `Bearer ${token}` }, // Set Authorization header
-          withCredentials: true, // Include credentials like cookies
+          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         });
 
         setProduct(result.data);
       } catch (error) {
-        console.error('Request failed with status code 403', error);
-        // Handle error, e.g., show an error message
+        console.error('Error fetching product details:', error);
       }
     };
 
@@ -38,10 +39,15 @@ const ProductDetail = () => {
   if (!product) return <div>Loading...</div>;
 
   return (
-    <div>
-      <h1>{product.name}</h1>
-      <p>{product.description}</p>
-      <p>${product.price}</p>
+    <div className="routes-bg">
+      <Header />
+      <div className="product-detail-bg">
+        <h1>Product Details</h1>
+        <h2>{product.name}</h2>
+        <p>Description: {product.description}</p>
+        <p>Price: ${product.price}</p>
+        <p>Stock: {product.stock} units</p>
+      </div>
     </div>
   );
 };
