@@ -1,0 +1,38 @@
+.nav-header {
+    border: 2px solid;
+    display: flex;
+    align-items: center;
+    padding-inline: 20px;
+    justify-content: center;
+}
+.nav-items-container {
+    display: flex;
+    list-style-type: none;
+    justify-content: space-around;
+    padding-left: 0px;
+    width: 70%;
+}
+
+.logout-btn {
+    font-family: 'Roboto';
+    font-weight: bold;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #e87e0c;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding-inline: 22px;
+    padding-block: 6px;
+}
+
+.link-style {
+    text-decoration: none;
+}
+
+.nav-list-item {
+    font-size: 16px;
+    font-weight: 500;
+    color: black;
+}

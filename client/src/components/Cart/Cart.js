@@ -1,29 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie'; // Ensure to import js-cookie
+
+import Header from '../Header/Header';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
-  const userId = 1; // This should be dynamically set based on logged-in user
+  const userId = Cookies.get('userId'); // Fetch userId from cookies
 
   useEffect(() => {
     const fetchCartItems = async () => {
-      const result = await axios.get(`/api/cart/${userId}`);
-      setCartItems(result.data);
+      try {
+        const result = await axios.get(`/api/cart/${userId}`, {
+          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${Cookies.get('authToken')}`, // Add token header
+          },
+        });
+        setCartItems(result.data);
+      } catch (error) {
+        console.error('Error fetching cart items:', error);
+      }
     };
-    fetchCartItems();
+    if (userId) {
+      fetchCartItems();
+    }
   }, [userId]);
 
   return (
-    <div>
-      <h1>Shopping Cart</h1>
-      <ul>
-        {cartItems.map(item => (
-          <li key={item.id}>
-            Product ID: {item.product_id} - Quantity: {item.quantity}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <>
+      <Header />
+      <div>
+        <h1>Shopping Cart</h1>
+        <ul>
+          {cartItems.map((item) => (
+            <li key={item.id}>
+              Product ID: {item.product_id} - Quantity: {item.quantity}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
   );
 };
 

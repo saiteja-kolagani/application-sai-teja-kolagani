@@ -6,26 +6,17 @@ exports.register = (req, res) => {
   const { username, password, role } = req.body;
   console.log('Registering user:', username);
 
-  userModel.getUserByUsername(username, (err, existingUser) => {
+  const hashedPassword = bcrypt.hashSync(password, 8);
+
+  userModel.createUser(username, hashedPassword, role, (err, userId) => {
     if (err) {
-      console.error('Error checking username:', err.message);
-      return res.status(500).send('Error checking username.');
-    }
-    if (existingUser) {
-      return res.status(400).send('Username already exists.');
+      console.error('Error registering user:', err);
+      return res.status(500).json({ error: 'Error registering user.' });
     }
 
-    const hashedPassword = bcrypt.hashSync(password, 8);
-    userModel.createUser(username, hashedPassword, role, (err, userId) => {
-      if (err) {
-        console.error('Error registering user:', err.message);
-        return res.status(500).send('Error registering user.');
-      }
+    const token = jwt.sign({ id: userId, role }, process.env.SECRET_KEY, { expiresIn: '1d' });
 
-      const token = jwt.sign({ id: userId, role: role }, process.env.SECRET_KEY, { expiresIn: 86400 });
-      res.cookie('token', token, { httpOnly: true }); // Optionally set token as a cookie
-      res.status(200).send({ auth: true, token });
-    });
+    res.status(200).json({ token, role });
   });
 };
 
@@ -34,14 +25,28 @@ exports.login = (req, res) => {
   console.log(`Attempting login for username: ${username}`);
 
   userModel.getUserByUsername(username, (err, user) => {
-    if (err) return res.status(500).send('Error on the server.');
-    if (!user) return res.status(404).send('User not found.');
+    if (err) {
+      console.error('Error on the server:', err);
+      return res.status(500).json({ error: 'Error on the server.' });
+    }
+    if (!user) {
+      return res.status(404).json({ error: 'User not found.' });
+    }
 
+    // Check password validity
     const passwordIsValid = bcrypt.compareSync(password, user.password);
-    if (!passwordIsValid) return res.status(401).send({ auth: false, token: null });
+    if (!passwordIsValid) {
+      return res.status(401).json({ auth: false, token: null, error: 'Invalid password.' });
+    }
 
-    const token = jwt.sign({ id: user.id, role: user.role }, process.env.SECRET_KEY, { expiresIn: 86400 });
-    res.cookie('token', token, { httpOnly: true }); // Optionally set token as a cookie
-    res.status(200).send({ auth: true, token });
+    // Create token
+    const token = jwt.sign({ id: user.id, role: user.role }, process.env.SECRET_KEY, { expiresIn: '1d' });
+
+    // Log the token and role
+    console.log('Generated Token:', token, 'Role:', user.role);
+
+    // Send back userId as well
+    res.status(200).json({ auth: true, token, role: user.role, userId: user.id });
   });
 };
+
