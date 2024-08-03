@@ -6,7 +6,7 @@ import Header from '../Header/Header';
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const userId = Cookies.get('userId');
-  const apiURL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  const apiURL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const fetchProducts = async () => {
