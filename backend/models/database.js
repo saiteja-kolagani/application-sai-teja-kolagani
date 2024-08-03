@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
-const db = new sqlite3.Database(process.env.DB_PATH || './database.sqlite', (err) => {
+const db = new sqlite3.Database(process.env.DB_PATH, (err) => {
   if (err) {
     console.error('Error opening database:', err.message);
   } else {
