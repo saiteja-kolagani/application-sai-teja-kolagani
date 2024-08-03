@@ -8,6 +8,8 @@ import Header from '../Header/Header';
 import '../routes.css';
 import './products.css';
 
+const apiURL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 const ProductDetail = () => {
   const { id } = useParams(); 
   const [product, setProduct] = useState(null);
@@ -21,7 +23,7 @@ const ProductDetail = () => {
           return;
         }
 
-        const result = await axios.get(`http://localhost:5000/api/products/${id}`, {
+        const result = await axios.get(`${apiURL}/api/products/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true,
         });

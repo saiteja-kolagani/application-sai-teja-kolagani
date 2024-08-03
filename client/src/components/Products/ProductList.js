@@ -6,6 +6,7 @@ import Header from '../Header/Header';
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const userId = Cookies.get('userId');
+  const apiURL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -17,7 +18,7 @@ const ProductList = () => {
           return;
         }
 
-        const response = await fetch('http://localhost:5000/api/products', {
+        const response = await fetch(`${apiURL}/api/products`, {
           headers: { Authorization: `Bearer ${token}` },
           credentials: 'include',
         });
@@ -34,7 +35,7 @@ const ProductList = () => {
     };
 
     fetchProducts();
-  }, []);
+  }, [apiURL]); // Include apiURL in the dependency array
 
   const handleAddToCart = async (productId) => {
     try {
@@ -45,7 +46,7 @@ const ProductList = () => {
         return;
       }
 
-      const response = await fetch('http://localhost:5000/api/cart', {
+      const response = await fetch(`${apiURL}/api/cart`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -81,7 +82,7 @@ const ProductList = () => {
           {products.map((product) => (
             <li key={product.id}>
               <Link to={`/products/${product.id}`} className='product-link'>
-              <p className='stock-name'>{product.name}</p> <p>Know more about the stock...</p> <p>Rs.{product.price}</p> <p> Stocks {product.stock}</p>
+                <p className='stock-name'>{product.name}</p> <p>Know more about the stock...</p> <p>Rs.{product.price}</p> <p> Stocks {product.stock}</p>
               </Link>
               <button className='add-cart-btn' onClick={() => handleAddToCart(product.id)}>Add to Cart</button>
             </li>
