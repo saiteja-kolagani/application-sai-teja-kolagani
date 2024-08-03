@@ -6,3 +6,91 @@
     align-items: center;
     padding-inline: 80px;
 }
+
+.checkout-btn {
+    padding-inline: 12px;
+    padding-block: 8px;
+    background-color: #d1edd8;
+    color: #049128;
+    border: 1px solid #049128;
+    font-weight: 600;
+    border-radius: 6px;
+    outline: none;
+    cursor: pointer;
+}
+
+.checkout-btn:hover {
+    background-color: #049128;
+    color: #d1edd8;
+}
+
+.cart-bg h1 {
+    text-decoration: underline;
+}
+
+.cart-bg ul {
+    padding: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+}
+
+
+.cart-bg ul li {
+    background-color: azure;
+    margin: 20px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    width: 250px;
+    height: 300px;
+}
+
+.cart-bg ul li p {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.remove-btn {
+    margin: 15px;
+    background-color: red;
+    padding-inline: 10px;
+    padding-block: 6px;
+    font-weight: 500;
+    border-radius: 6px;
+    outline: none;
+    cursor: pointer;
+    border: none;
+}
+
+.remove-btn:hover {
+    background-color: darkred;
+}
+
+.inc-dec-btn {
+    margin: 5px;
+}
+
+.payment-page {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.payment-page h1 {
+    text-decoration: underline;
+}
+
+.payment-page h2 {
+    font-size: 28px;
+    color: #049128;
+}
+
+.payment-image {
+    border-radius: 12px;
+}

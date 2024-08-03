@@ -1,24 +1,29 @@
-
 const db = require('./database');
 
-const createOrder = (user_id, total, callback) => {
-  db.run(
-    "INSERT INTO orders (user_id, total, status) VALUES (?, ?, 'Pending')",
-    [user_id, total],
-    function(err) {
-      callback(err, this.lastID);
-    }
-  );
-};
+exports.createOrder = (user_id, cartItems, callback) => {
+  const orderQuery = `
+    INSERT INTO orders (user_id, total, status)
+    VALUES (?, ?, ?)
+  `;
 
-const getOrdersByUserId = (user_id, callback) => {
-  db.all(
-    "SELECT * FROM orders WHERE user_id = ?",
-    [user_id],
-    (err, rows) => {
-      callback(err, rows);
-    }
-  );
-};
+  const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
 
-module.exports = { createOrder, getOrdersByUserId };
+  db.run(orderQuery, [user_id, totalPrice, 'Pending'], function (err) {
+    if (err) return callback(err);
+
+    const orderId = this.lastID;
+
+    const orderItemsQuery = `
+      INSERT INTO order_items (order_id, product_id, quantity)
+      VALUES (?, ?, ?)
+    `;
+    
+    cartItems.forEach(item => {
+      db.run(orderItemsQuery, [orderId, item.product_id, item.quantity], (err) => {
+        if (err) console.error('Error inserting order item:', err);
+      });
+    });
+
+    callback(null, orderId);
+  });
+};

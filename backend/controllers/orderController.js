@@ -19,3 +19,20 @@ exports.getOrders = (req, res) => {
     res.status(200).send(orders);
   });
 };
+
+
+exports.createOrder = (req, res) => {
+  const { user_id, cartItems } = req.body;
+
+  if (!user_id || !cartItems) {
+    return res.status(400).json({ message: 'Invalid request' });
+  }
+
+  orderModel.createOrder(user_id, cartItems, (err, orderId) => {
+    if (err) {
+      console.error('Error creating order:', err);
+      return res.status(500).json({ message: 'Failed to create order' });
+    }
+    res.status(200).json({ message: 'Order created successfully', orderId });
+  });
+};

@@ -10,14 +10,13 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Using Fetch API to make the POST request
       const response = await fetch('http://localhost:5000/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ username, password }),
-        credentials: 'include' // Include credentials like cookies
+        credentials: 'include' 
       });
 
       if (!response.ok) {
@@ -27,10 +26,9 @@ const Login = () => {
       const data = await response.json();
       const { token, role, userId } = data;
 
-      // Check if the token is received
+
       console.log('Login successful! Token:', token, 'Role:', role);
 
-      // Store the token and role in cookies
       Cookies.set('authToken', token, {
         expires: 1,
         path: '/',
@@ -45,7 +43,7 @@ const Login = () => {
         sameSite: 'Strict',
       });
 
-      // Set userId in cookies for later use
+
       Cookies.set('userId', userId, {
         expires: 1,
         path: '/',
@@ -53,14 +51,14 @@ const Login = () => {
         sameSite: 'Strict',
       });
 
-      // Verify if cookies are set correctly
+
       console.log('authToken from Cookies:', Cookies.get('aToken'));
       console.log('userRole from Cookies:', Cookies.get('userRole'));
 
-      navigate('/'); // Redirect to home page after successful login
+      navigate('/'); 
     } catch (error) {
       console.error('Error logging in:', error);
-      // Show error message to the user
+
     }
   };
 

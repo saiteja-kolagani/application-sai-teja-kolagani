@@ -1,7 +1,6 @@
 
 const productModel = require('../models/productModel');
 
-// Create a new product
 exports.createProduct = (req, res) => {
   const { name, description, price, stock } = req.body;
   productModel.createProduct(name, description, price, stock, (err, productId) => {
@@ -12,7 +11,6 @@ exports.createProduct = (req, res) => {
   });
 };
 
-// Get all products
 exports.getAllProducts = (req, res) => {
   productModel.getAllProducts((err, products) => {
     if (err) {
@@ -22,7 +20,7 @@ exports.getAllProducts = (req, res) => {
   });
 };
 
-// Get a single product by ID
+
 exports.getProductById = (req, res) => {
   const productId = req.params.id;
   productModel.getProductById(productId, (err, product) => {
@@ -36,7 +34,7 @@ exports.getProductById = (req, res) => {
   });
 };
 
-// Update a product
+
 exports.updateProduct = (req, res) => {
   const productId = req.params.id;
   const { name, description, price, stock } = req.body;
@@ -48,7 +46,7 @@ exports.updateProduct = (req, res) => {
   });
 };
 
-// Delete a product
+
 exports.deleteProduct = (req, res) => {
   const productId = req.params.id;
   productModel.deleteProduct(productId, (err) => {

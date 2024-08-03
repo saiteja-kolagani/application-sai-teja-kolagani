@@ -41,8 +41,19 @@ db.serialize(() => {
     user_id INTEGER,
     total REAL,
     status TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY(user_id) REFERENCES users(id)
   )`);
+
+  db.run(`CREATE TABLE IF NOT EXISTS order_items (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    order_id INTEGER,
+    product_id INTEGER,
+    quantity INTEGER,
+    price REAL,
+    FOREIGN KEY(order_id) REFERENCES orders(id),
+    FOREIGN KEY(product_id) REFERENCES products(id)
+)`);
 
   db.run(`CREATE TABLE IF NOT EXISTS sessions (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -53,7 +64,6 @@ db.serialize(() => {
     FOREIGN KEY(user_id) REFERENCES users(id)
   )`);
 
-  // Insert sample products
   const sampleProducts = [
     { name: 'Tata Steel', description: 'Tata Steel Limited is an India-based global steel company with an annual crude steel capacity of approximately 35 million tons per annum. The Company is primarily engaged in the business of manufacturing and distribution of steel products across the globe. The Company and its subsidiaries have a presence across the value chain of steel manufacturing from mining and processing iron ore and coal to producing and distributing finished products. Its products include cold rolled (Non-branded), BP sheets, Galvano, HR commercial, hot rolled pickled and oiled and hot rolled skin passed pickled and oiled, high tensile steel strapping, pre-engineered buildings, projects/tenders, construction and projects, and full hard cold rolled. The Companys brands include MagiZinc, Ymagine, Ympress, Contiflo, Strongbox, SAB Profil, Fischer Profil, Montana, Advantica, Fischertherm, Fischerfireproof, Montanatherm, Montapanel, Swiss Panel, Holorib, Serica, MagiZinc Auto, HyperForm, HILUMIN, and Colorcoat.', price: 15822.64, stock: 100 },
     { name: 'Zomato', description: 'Zomato Limited operates as an Internet portal that helps in connecting the users, restaurant partners and delivery partners. The Company also provides a platform for restaurant partners to advertise themselves to the target audience in India and abroad and supply ingredients to restaurant partners. Its segments include India food ordering and delivery; Hyperpure supplies (B2B business); Quick commerce business, and All other segments (residual). India food ordering and delivery is the online platform through which the Company facilitates food ordering and delivery of the food items by connecting the end users, restaurant partners, and delivery personnel. Its Hyperpure supplies (B2B business) segment offers farm-to-fork supplies for restaurants in India. Quick commerce business is a quick commerce online platform facilitating quick delivery of goods and other essentials by connecting the end users, providing delivery services, and warehousing services.', price: 14953.38, stock: 57 },

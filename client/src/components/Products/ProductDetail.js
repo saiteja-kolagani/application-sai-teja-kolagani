@@ -1,16 +1,15 @@
-// src/components/Products/ProductDetail.js
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { useParams } from 'react-router-dom'; // Import useParams for route parameters
+import { useParams } from 'react-router-dom';
 import Header from '../Header/Header';
 
 import '../routes.css';
 import './products.css';
 
 const ProductDetail = () => {
-  const { id } = useParams(); // Get the product ID from the URL parameters
+  const { id } = useParams(); 
   const [product, setProduct] = useState(null);
 
   useEffect(() => {

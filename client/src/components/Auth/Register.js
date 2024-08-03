@@ -8,8 +8,8 @@ import './credentials.css';
 const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('user'); // Default to 'user'
-  const [error, setError] = useState(''); // State for error messages
+  const [role, setRole] = useState('user');
+  const [error, setError] = useState(''); 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -20,24 +20,24 @@ const Register = () => {
       const { token, role: userRole } = response.data;
 
       Cookies.set('authToken', token, {
-        expires: 1, // 1 day expiration
+        expires: 1, 
         secure: true,
         sameSite: 'Strict',
         path: '/',
       });
 
       Cookies.set('userRole', userRole, {
-        expires: 1, // 1 day expiration
+        expires: 1, 
         secure: true,
         sameSite: 'Strict',
         path: '/',
       });
 
       console.log('Registration successful!');
-      navigate('/'); // Ensure you navigate to the intended route
+      navigate('/'); 
     } catch (error) {
       console.error("Error registering:", error);
-      setError('Failed to register. Please try again.'); // Set error message
+      setError('Failed to register. Please try again.'); 
     }
   };
 
@@ -45,7 +45,7 @@ const Register = () => {
     <div className='credentails-bg'>
       <form onSubmit={handleSubmit} className='credentials-form'>
         <h1 className='credentials-heading'>Regist<span>E</span>r</h1>
-        {error && <p style={{ color: 'red' }}>{error}</p>} {/* Display error message */}
+        {error && <p style={{ color: 'red' }}>{error}</p>}
         <div className='input-container'>
           <label htmlFor='username'>Username</label>
           <br />

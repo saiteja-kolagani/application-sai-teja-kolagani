@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import Cookies from 'js-cookie';
 import { Link } from 'react-router-dom';
 import Header from '../Header/Header';
-
-import '../routes.css';
-import './products.css';
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
@@ -21,12 +17,17 @@ const ProductList = () => {
           return;
         }
 
-        const result = await axios.get('http://localhost:5000/api/products', {
+        const response = await fetch('http://localhost:5000/api/products', {
           headers: { Authorization: `Bearer ${token}` },
-          withCredentials: true,
+          credentials: 'include',
         });
 
-        setProducts(result.data);
+        if (!response.ok) {
+          throw new Error('Failed to fetch products');
+        }
+
+        const data = await response.json();
+        setProducts(data);
       } catch (error) {
         console.error('Request failed with status code 403', error);
       }
@@ -44,21 +45,26 @@ const ProductList = () => {
         return;
       }
 
-      const response = await axios.post(
-        'http://localhost:5000/api/cart', // Correct API endpoint
-        {
+      const response = await fetch('http://localhost:5000/api/cart', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
           user_id: userId,
           product_id: productId,
-          quantity: 1, // Assuming you want to add 1 item initially
-        },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-          withCredentials: true,
-        }
-      );
+          quantity: 1,
+        }),
+      });
 
-      if (response.status === 200) {
+      if (response.ok) {
         alert('Product added to cart!');
+      } else {
+        const errorData = await response.json();
+        console.error('Failed to add product to cart:', errorData.message);
+        alert('Failed to add product to cart.');
       }
     } catch (error) {
       console.error('Error adding product to cart:', error);
@@ -73,12 +79,11 @@ const ProductList = () => {
         <h1>Products</h1>
         <ul>
           {products.map((product) => (
-            <li key={product.id} className='stock-list-card'>
+            <li key={product.id}>
               <Link to={`/products/${product.id}`} className='product-link'>
-                <p className='stock-name'>{product.name}</p> <p>Know more about the stock...</p> <p>Rs.{product.price}</p> <p> Stocks {product.stock}</p>
+              <p className='stock-name'>{product.name}</p> <p>Know more about the stock...</p> <p>Rs.{product.price}</p> <p> Stocks {product.stock}</p>
               </Link>
-              <br />
-              <button onClick={() => handleAddToCart(product.id)} className='add-cart-btn'>Add to Cart</button>
+              <button className='add-cart-btn' onClick={() => handleAddToCart(product.id)}>Add to Cart</button>
             </li>
           ))}
         </ul>

@@ -1,12 +1,10 @@
-// src/App.js
-
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
 import Home from './components/Home/Home';
 import ProductList from './components/Products/ProductList';
-import ProductDetail from './components/Products/ProductDetail'; // Import the ProductDetail component
+import ProductDetail from './components/Products/ProductDetail';
 import AdminDashboard from './components/Products/AdminDashboard';
 import Cart from './components/Cart/Cart';
 import Checkout from './components/Cart/Checkout';
@@ -14,6 +12,7 @@ import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute/AdminRoute';
+import Payment from './components/Cart/Payment';
 
 const App = () => {
   return (
@@ -68,6 +67,14 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <Checkout />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/payment"
+              element={
+                <ProtectedRoute>
+                  <Payment />
                 </ProtectedRoute>
               }
             />

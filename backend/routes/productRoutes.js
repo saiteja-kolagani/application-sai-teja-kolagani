@@ -1,9 +1,10 @@
+
 const express = require('express');
 const router = express.Router();
 const productController = require('../controllers/productController');
-const adminMiddleware = require('../middleware/adminMiddleware'); // Assuming you have an admin middleware
+const adminMiddleware = require('../middleware/adminMiddleware');
 
-// Define routes with correct controller methods
+
 router.post('/', adminMiddleware, productController.createProduct);
 router.get('/', productController.getAllProducts);
 router.get('/:id', productController.getProductById);

@@ -21,10 +21,8 @@ const Checkout = () => {
           withCredentials: true,
         }
       );
-      // Handle success (redirect, show message, etc.)
     } catch (error) {
       console.error('Error during checkout:', error);
-      // Show error message
     }
   };
 

@@ -25,6 +25,7 @@
     font-weight: 500;
     padding: 20px;
     background-image: radial-gradient(#ebfef5, #e87e0c);
+    border-radius: 8px;
 }
 
 .products-bg ul li p {

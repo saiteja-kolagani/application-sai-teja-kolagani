@@ -33,19 +33,13 @@ exports.login = (req, res) => {
       return res.status(404).json({ error: 'User not found.' });
     }
 
-    // Check password validity
     const passwordIsValid = bcrypt.compareSync(password, user.password);
     if (!passwordIsValid) {
       return res.status(401).json({ auth: false, token: null, error: 'Invalid password.' });
     }
 
-    // Create token
     const token = jwt.sign({ id: user.id, role: user.role }, process.env.SECRET_KEY, { expiresIn: '1d' });
 
-    // Log the token and role
-    console.log('Generated Token:', token, 'Role:', user.role);
-
-    // Send back userId as well
-    res.status(200).json({ auth: true, token, role: user.role, userId: user.id });
+    res.status(200).json({ auth: true, token, role: user.role });
   });
 };

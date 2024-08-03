@@ -1,6 +1,6 @@
 const db = require('./database');
 
-// Create a new product
+
 const createProduct = (name, description, price, stock, callback) => {
   const query = `INSERT INTO products (name, description, price, stock) VALUES (?, ?, ?, ?)`;
   const params = [name, description, price, stock];
@@ -15,7 +15,7 @@ const createProduct = (name, description, price, stock, callback) => {
   });
 };
 
-// Get all products
+
 const getAllProducts = (callback) => {
   const query = `SELECT * FROM products`;
   db.all(query, [], (err, rows) => {
@@ -28,7 +28,7 @@ const getAllProducts = (callback) => {
   });
 };
 
-// Get a single product by ID
+
 const getProductById = (id, callback) => {
   const query = `SELECT * FROM products WHERE id = ?`;
   const params = [id];
@@ -43,7 +43,7 @@ const getProductById = (id, callback) => {
   });
 };
 
-// Update a product
+
 const updateProduct = (id, name, description, price, stock, callback) => {
   const query = `UPDATE products SET name = ?, description = ?, price = ?, stock = ? WHERE id = ?`;
   const params = [name, description, price, stock, id];
@@ -58,7 +58,7 @@ const updateProduct = (id, name, description, price, stock, callback) => {
   });
 };
 
-// Delete a product
+
 const deleteProduct = (id, callback) => {
   const query = `DELETE FROM products WHERE id = ?`;
   const params = [id];
