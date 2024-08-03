@@ -1,4 +1,3 @@
-
 const cartModel = require('../models/cartModel');
 
 exports.addItemToCart = (req, res) => {
